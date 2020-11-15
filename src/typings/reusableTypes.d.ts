@@ -1,3 +1,3 @@
 declare type RootStackParamList = {
-  WelcomePage: undefined;
+  Heroes: undefined;
 };

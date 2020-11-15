@@ -1,9 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import WelcomePage from 'pages/WelcomePage';
+import { ThemeProvider } from 'styled-components';
+import Heroes from 'pages/Heroes';
+import theme from 'globals/styles/defaultTheme';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -13,21 +16,25 @@ const styles = StyleSheet.create({
   },
 });
 
-const App: React.FC = () => (
-  <SafeAreaView style={styles.container}>
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="WelcomePage"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="WelcomePage" component={WelcomePage} />
-      </Stack.Navigator>
-      {/* eslint-disable-next-line react/style-prop-object */}
-      <StatusBar style="auto" />
-    </NavigationContainer>
-  </SafeAreaView>
-);
-
-export default App;
+export default function App(): JSX.Element {
+  return (
+    <SafeAreaView style={styles.container}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Heroes"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Heroes" component={Heroes} />
+          </Stack.Navigator>
+          {/* eslint-disable-next-line react/style-prop-object */}
+          <StatusBar style="auto" />
+        </NavigationContainer>
+        <StatusBar />
+      </ThemeProvider>
+      <StatusBar />
+    </SafeAreaView>
+  );
+}
