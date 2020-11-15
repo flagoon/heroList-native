@@ -9,7 +9,7 @@ module.exports = function (api) {
           alias: {
             assets: './src/assets',
             components: './src/components',
-            global: './src/globals',
+            globals: './src/globals',
             pages: './src/pages',
             helpers: './src/helpers',
           },

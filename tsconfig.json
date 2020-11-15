@@ -26,10 +26,7 @@
     "strictNullChecks": true,
     "jsx": "react-native",
     "jsxFactory": "React.createElement",
-    "typeRoots": ["node_modules/@types"],
-    "paths": {
-      "pages": ["./pages/*"]
-    }
+    "typeRoots": ["node_modules/@types"]
   },
   "include": ["./src", "App.tsx"],
   "exclude": ["node_modules", "dist"]
