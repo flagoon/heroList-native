@@ -2,13 +2,13 @@ import { DefaultTheme } from 'styled-components';
 
 const theme: DefaultTheme = {
   colors: {
-    primary: '#00DFAA',
-    secondary: '#086788',
-    background: '#F4F0F9',
+    primary: '#129490',
+    secondary: '#70B77E',
+    background: '#065143',
     black: '#1A3A3A',
     white: '#F0F0F0',
     text: {
-      primary: '#1A3A3A',
+      primary: '#CE1483',
       secondary: '#F0F0F0',
     },
   },
