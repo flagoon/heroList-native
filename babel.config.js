@@ -12,6 +12,7 @@ module.exports = function (api) {
             globals: './src/globals',
             pages: './src/pages',
             helpers: './src/helpers',
+            api: './src/api',
           },
         },
       ],
