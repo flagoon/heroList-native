@@ -21,6 +21,7 @@ module.exports = {
     'react-native/no-inline-styles': 1,
     'react-native/no-color-literals': 2,
     'react-native/no-raw-text': 2,
+    'react/prop-types': 0,
   },
   settings: {
     react: {
