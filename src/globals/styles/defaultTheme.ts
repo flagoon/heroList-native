@@ -13,10 +13,10 @@ const theme: DefaultTheme = {
     },
   },
   textSize: {
-    small: '10px',
-    normal: '12px',
-    medium: '16px',
-    big: '24px',
+    small: '12px',
+    normal: '16px',
+    medium: '24px',
+    big: '36px',
   },
 };
 export default theme;

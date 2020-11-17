@@ -4,11 +4,13 @@ import CustomButton from 'components/CustomButton/CustomButton';
 import styled from 'styled-components';
 import Hero from 'components/Hero/Hero';
 import { getHeroes } from 'api';
+import Container from 'components/AppContainer/AppContainer';
 
 const Heroes: React.FC = () => {
   const heroes = getHeroes();
   const renderItem = ({ item }: { item: Hero }) => (
     <Hero
+      id={item.id}
       full_name={item.full_name}
       type={item.type}
       avatar_url={item.avatar_url}
@@ -24,7 +26,6 @@ const Heroes: React.FC = () => {
       >
         <Text>+ Add hero</Text>
       </CustomButton>
-      <HeroesBreak />
       <FlatList
         data={heroes}
         renderItem={renderItem}
@@ -33,12 +34,6 @@ const Heroes: React.FC = () => {
     </Container>
   );
 };
-
-export const Container = styled(View)`
-  flex: 1;
-  padding: 10px 10px;
-  background-color: ${(props) => props.theme.colors.background};
-`;
 
 export default Heroes;
 
