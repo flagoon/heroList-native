@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 
-export const HeroContainer = styled(View)`
+export const HeroContainer = styled(TouchableOpacity)`
   margin: 4px 0;
   border-radius: 4px;
   padding: 8px;
@@ -19,7 +19,7 @@ export const HeroMain = styled(View)`
 `;
 
 export const HeroName = styled(Text)`
-  font-size: ${(props) => props.theme.textSize.big};
+  font-size: ${(props) => props.theme.textSize.medium};
 `;
 
 export const HeroType = styled(Text)`

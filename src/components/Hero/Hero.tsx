@@ -8,10 +8,29 @@ import {
   HeroName,
   HeroType,
 } from './Hero.sc';
+import usePageNavigation from 'helpers/useNavigationHook';
 
-const Hero: React.FC<Hero> = ({ full_name, description, avatar_url, type }) => {
+const Hero: React.FC<Hero> = ({
+  id,
+  full_name,
+  description,
+  avatar_url,
+  type,
+}) => {
+  const { toHeroPage } = usePageNavigation();
+  const navigateToHeroPage = () =>
+    toHeroPage({
+      id,
+      full_name,
+      description,
+      avatar_url,
+      type,
+    });
   return (
-    <HeroContainer>
+    <HeroContainer
+      onPress={navigateToHeroPage}
+      onLongPress={() => console.log('long ' + id)}
+    >
       <HeroMain>
         <Avatar url={avatar_url} />
         <HeroDetails>
