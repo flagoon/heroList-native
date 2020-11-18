@@ -1,3 +1,1 @@
-import { getAllHeros } from './apiCalls';
-
-export { getAllHeros };
+export { getAllHeros, getAllTypes } from './apiCalls';
