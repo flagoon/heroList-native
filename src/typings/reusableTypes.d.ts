@@ -11,6 +11,11 @@ declare type Hero = {
   full_name: string;
   description: string;
   avatar_url: string;
-  type: { id: string; name: string };
+  type: { id: string; name: string } | string;
   navigation?: RootStackParamList;
+};
+
+declare type HeroType = {
+  id: string;
+  name: string;
 };

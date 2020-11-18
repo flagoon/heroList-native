@@ -3,19 +3,22 @@ import { View, Text, FlatList } from 'react-native';
 import CustomButton from 'components/CustomButton/CustomButton';
 import styled from 'styled-components';
 import Hero from 'components/Hero/Hero';
+import { useQuery } from 'react-query';
 import { getAllHeros } from 'api';
 import Container from 'components/AppContainer/AppContainer';
 import { HOST_IP } from 'api/CONSTS';
+import useNavigation from 'helpers/useNavigationHook';
+import { HEROES } from 'globals/constants';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Heroes: React.FC = () => {
-  const [heroes, setHeroes] = React.useState<Hero[]>([]);
+  const { toAddHeroPage } = useNavigation();
 
-  React.useEffect(() => {
-    (async function () {
-      const heroes = await getAllHeros();
-      setHeroes(heroes.data.data);
-    })();
-  }, []);
+  const {
+    isLoading: loadingHeroes,
+    data: heroes,
+    error: heroesError,
+  } = useQuery(HEROES, getAllHeros);
 
   const renderItem = ({ item }: { item: Hero }) => {
     const changeAvatar = item.avatar_url.includes('localhost')
@@ -31,20 +34,28 @@ const Heroes: React.FC = () => {
       />
     );
   };
+
+  if (heroesError) {
+    return <Text>Error</Text>;
+  }
+
   return (
     <Container>
+      <Spinner visible={loadingHeroes} textContent="Loading heroes" />
       <CustomButton
-        onPressHandler={() => console.log('pressed')}
+        onPressHandler={() => toAddHeroPage()}
         textSize="medium"
         textWeight="bold"
       >
         <Text>+ Add hero</Text>
       </CustomButton>
-      <FlatList
-        data={heroes}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id as string}
-      />
+      {heroes !== undefined && (
+        <FlatList
+          data={heroes}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id as string}
+        />
+      )}
     </Container>
   );
 };
