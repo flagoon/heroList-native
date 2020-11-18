@@ -11,6 +11,6 @@ declare type Hero = {
   full_name: string;
   description: string;
   avatar_url: string;
-  type: string;
+  type: { id: string; name: string };
   navigation?: RootStackParamList;
 };
