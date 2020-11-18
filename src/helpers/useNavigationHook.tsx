@@ -13,7 +13,7 @@ const usePageNavigation = (): {
         hero,
       }),
     toHeroesPage: () => navigation.navigate('Heroes'),
-    toAddHeroPage: () => navigation.navigate('AddHeroPage'),
+    toAddHeroPage: () => navigation.navigate('AddHero'),
   };
 };
 
