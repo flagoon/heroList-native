@@ -28,7 +28,7 @@ const Hero: React.FC<Props> = ({ route }) => {
           size={200}
         />
 
-        <HeroType>{hero.type}</HeroType>
+        <HeroType>{hero.type.name}</HeroType>
         <HeroDescription>{hero.description}</HeroDescription>
       </HeroContainer>
     </Container>
