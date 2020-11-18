@@ -1,13 +1,3 @@
-import data from './data';
+import { getAllHeros } from './apiCalls';
 
-export const getHeroes = (): Hero[] => {
-  return data;
-};
-
-export const getHero = (heroId: string): Hero => {
-  const hero = data.find((hero) => heroId === hero.id);
-  if (hero) {
-    return hero;
-  }
-  throw new Error('No hero with given Id');
-};
+export { getAllHeros };

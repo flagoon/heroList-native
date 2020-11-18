@@ -9,6 +9,7 @@ import {
   HeroType,
 } from './Hero.sc';
 import usePageNavigation from 'helpers/useNavigationHook';
+import { HOST_IP } from 'api/CONSTS';
 
 const Hero: React.FC<Hero> = ({
   id,
@@ -35,7 +36,7 @@ const Hero: React.FC<Hero> = ({
         <Avatar url={avatar_url} />
         <HeroDetails>
           <HeroName>{full_name}</HeroName>
-          <HeroType>{type}</HeroType>
+          <HeroType>{type.name}</HeroType>
         </HeroDetails>
       </HeroMain>
 
