@@ -14,6 +14,8 @@ import Spinner from 'react-native-loading-spinner-overlay';
 const Heroes: React.FC = () => {
   const { toAddHeroPage } = useNavigation();
 
+  const [profileIdToDelete, setProfileIdToDelete] = React.useState('');
+
   const {
     isLoading: loadingHeroes,
     data: heroes,
@@ -31,6 +33,8 @@ const Heroes: React.FC = () => {
         type={item.type}
         avatar_url={changeAvatar}
         description={item.description}
+        toDelete={item.id === profileIdToDelete}
+        setToDelete={(id) => setProfileIdToDelete(id)}
       />
     );
   };

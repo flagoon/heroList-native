@@ -7,7 +7,7 @@ interface Props {
   types: HeroType[];
   setFieldValue: (
     field: string,
-    value: any,
+    value: unknown,
     shouldValidate?: boolean | undefined,
   ) => void;
   fieldName: string;

@@ -23,9 +23,7 @@ const AddHero: React.FC = () => {
     getAllTypes,
   );
 
-  const [createHeroMutation, { isLoading: heroBeingCreated }] = useMutation(
-    createHero,
-  );
+  const [createHeroMutation] = useMutation(createHero);
 
   const validationSchema = Yup.object().shape({
     full_name: Yup.string()
