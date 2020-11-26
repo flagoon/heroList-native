@@ -16,6 +16,7 @@ const Hero: React.FC<
   Hero & {
     toDelete: boolean;
     setToDelete: (id: string) => void;
+    deleteHero: (id: string) => void;
   }
 > = ({
   id,
@@ -25,6 +26,7 @@ const Hero: React.FC<
   type,
   setToDelete,
   toDelete,
+  deleteHero,
 }) => {
   const createAlert = () => {
     Alert.alert(
@@ -39,6 +41,7 @@ const Hero: React.FC<
           // TODO: change to delete hero
           onPress: () => {
             setToDelete('');
+            deleteHero(id);
           },
         },
       ],

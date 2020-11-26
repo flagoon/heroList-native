@@ -27,8 +27,6 @@ setConsole({
   error: console.warn,
 });
 
-const queryCache = new QueryCache();
-
 export default function App(): JSX.Element {
   /*
   There is an issue with Firebase and react-native. It's showing a warning about long timers. For now there are two
@@ -38,26 +36,24 @@ export default function App(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ReactQueryCacheProvider queryCache={queryCache}>
-        <ThemeProvider theme={theme}>
-          <AppContainer>
-            <NavigationContainer>
-              <Stack.Navigator
-                initialRouteName="Heroes"
-                screenOptions={{
-                  headerShown: false,
-                }}
-              >
-                <Stack.Screen name="Heroes" component={Heroes} />
-                <Stack.Screen name="Hero" component={Hero} />
-                <Stack.Screen name="AddHero" component={AddHero} />
-              </Stack.Navigator>
-              {/* eslint-disable-next-line react/style-prop-object */}
-              <StatusBar style="light" backgroundColor="#065143" />
-            </NavigationContainer>
-          </AppContainer>
-        </ThemeProvider>
-      </ReactQueryCacheProvider>
+      <ThemeProvider theme={theme}>
+        <AppContainer>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="Heroes"
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="Heroes" component={Heroes} />
+              <Stack.Screen name="Hero" component={Hero} />
+              <Stack.Screen name="AddHero" component={AddHero} />
+            </Stack.Navigator>
+            {/* eslint-disable-next-line react/style-prop-object */}
+            <StatusBar style="light" backgroundColor="#065143" />
+          </NavigationContainer>
+        </AppContainer>
+      </ThemeProvider>
     </SafeAreaView>
   );
 }

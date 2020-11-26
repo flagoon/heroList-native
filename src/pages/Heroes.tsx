@@ -1,26 +1,40 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { Text, FlatList } from 'react-native';
 import CustomButton from 'components/CustomButton/CustomButton';
-import styled from 'styled-components';
 import Hero from 'components/Hero/Hero';
-import { useQuery } from 'react-query';
-import { getAllHeros } from 'api';
+import { useQuery, useMutation, queryCache } from 'react-query';
+import { getAllHeros, deleteHero } from 'api';
 import Container from 'components/AppContainer/AppContainer';
 import { HOST_IP } from 'api/CONSTS';
 import useNavigation from 'helpers/useNavigationHook';
-import { HEROES } from 'globals/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const Heroes: React.FC = () => {
   const { toAddHeroPage } = useNavigation();
-
   const [profileIdToDelete, setProfileIdToDelete] = React.useState('');
+  const [deleteMutation] = useMutation(deleteHero, {
+    onMutate: (value) => {
+      queryCache.cancelQueries('heroes');
+      const prev = queryCache.getQueryData('heroes');
+      queryCache.setQueryData('heroes', (data: Hero[] | undefined): Hero[] => {
+        if (data) {
+          return data.filter((hero: Hero) => hero.id !== value);
+        }
+        return [];
+      });
+      return () => queryCache.setQueryData('heroes', prev);
+    },
+    onError: (_, __, rollback) => (rollback as any)(),
+    onSettled: () => {
+      queryCache.invalidateQueries('heroes');
+    },
+  });
 
   const {
     isLoading: loadingHeroes,
     data: heroes,
     error: heroesError,
-  } = useQuery(HEROES, getAllHeros);
+  } = useQuery('heroes', getAllHeros);
 
   const renderItem = ({ item }: { item: Hero }) => {
     const changeAvatar = item.avatar_url.includes('localhost')
@@ -35,6 +49,7 @@ const Heroes: React.FC = () => {
         description={item.description}
         toDelete={item.id === profileIdToDelete}
         setToDelete={(id) => setProfileIdToDelete(id)}
+        deleteHero={(id: string) => deleteMutation(id)}
       />
     );
   };
@@ -65,7 +80,3 @@ const Heroes: React.FC = () => {
 };
 
 export default Heroes;
-
-export const HeroesBreak = styled(View)`
-  height: 10px;
-`;
