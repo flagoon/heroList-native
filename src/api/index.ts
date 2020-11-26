@@ -1,1 +1,1 @@
-export { getAllHeros, getAllTypes } from './apiCalls';
+export * from './apiCalls';

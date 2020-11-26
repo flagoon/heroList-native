@@ -18,3 +18,7 @@ export const createHero = async (hero: {
 }): Promise<AxiosResponse<void>> => {
   return axios.post(`${HOST}${ENDPOINTS.heroes}`, hero);
 };
+
+export const deleteHero = async (id: string): Promise<AxiosResponse<Hero>> => {
+  return axios.delete(`${HOST}${ENDPOINTS.heroes}/${id}`);
+};

@@ -6,12 +6,12 @@ declare type RootStackParamList = {
   AddHero: undefined;
 };
 
-declare type Hero = {
+declare type Hero<T = { id: string; name: string }> = {
   id: string;
   full_name: string;
   description: string;
   avatar_url: string;
-  type: { id: string; name: string } | string;
+  type: T;
   navigation?: RootStackParamList;
 };
 

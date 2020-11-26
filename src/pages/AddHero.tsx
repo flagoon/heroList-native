@@ -4,7 +4,7 @@ import Container from 'components/AppContainer/AppContainer';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useQuery, useMutation, queryCache } from 'react-query';
-import { HEROES, TYPES } from 'globals/constants';
+import { TYPES } from 'globals/constants';
 import { getAllTypes } from 'api';
 import CustomButton from 'components/CustomButton/CustomButton';
 import TypePicker from 'components/TypePicker/TypePicker';
@@ -35,7 +35,7 @@ const AddHero: React.FC = () => {
 
   const { toHeroesPage } = useNavigation();
 
-  const initialValues: Omit<Hero, 'id'> = {
+  const initialValues: Omit<Hero<string>, 'id'> = {
     full_name: '',
     description: '',
     avatar_url: '',
@@ -55,7 +55,7 @@ const AddHero: React.FC = () => {
           try {
             if (typeof values.type === 'string') {
               await createHeroMutation({ ...values, type: values.type });
-              queryCache.invalidateQueries(HEROES);
+              queryCache.invalidateQueries('heroes');
               toHeroesPage();
             }
           } catch (error) {
