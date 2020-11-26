@@ -42,6 +42,7 @@ export const ButtonContainer = styled(TouchableOpacity)<ButtonContainerType>`
   background-color: ${(props) =>
     props.backgroundColor || props.theme.colors.primary};
   height: 40px;
+  ${(props) => props.isIcon && `width: 40px`}
   border-radius: 4px;
   align-items: center;
   justify-content: center;

@@ -13,6 +13,8 @@ interface Props {
   numberOfLines?: number;
   textAlignVertical?: 'top' | 'bottom';
   style?: StyleProp<TextStyle>;
+  leftItem?: JSX.Element;
+  rightItem?: JSX.Element;
 }
 
 const CustomTextInput: React.FC<Props> = ({
@@ -26,9 +28,11 @@ const CustomTextInput: React.FC<Props> = ({
   style,
   error,
   touched,
+  leftItem,
+  rightItem,
 }: Props) => {
   return (
-    <CustomTextContainer>
+    <View>
       <StyledTextInput
         value={value}
         hasErrors={!!error && !!touched}
@@ -40,8 +44,12 @@ const CustomTextInput: React.FC<Props> = ({
         textAlignVertical={textAlignVertical}
         style={style}
       />
+      {rightItem && (
+        <IconContainer iconAlign="right">{rightItem}</IconContainer>
+      )}
+      {leftItem && <IconContainer iconAlign="right">{leftItem}</IconContainer>}
       {!!error && !!touched && <ErrorText>{error}</ErrorText>}
-    </CustomTextContainer>
+    </View>
   );
 };
 
@@ -67,6 +75,9 @@ export const ErrorText = styled(Text)`
   color: red;
 `;
 
-export const CustomTextContainer = styled(View)`
-  background-color: pink;
+export const IconContainer = styled(View)<{ iconAlign: 'left' | 'right' }>`
+  position: absolute;
+  width: 40px;
+  align-self: ${(props) =>
+    props.iconAlign === 'left' ? 'flex-start' : 'flex-end'};
 `;
