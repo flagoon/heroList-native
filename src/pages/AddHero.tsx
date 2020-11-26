@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import CustomTextInput from 'components/CustomText/CustomTextInput';
 import { createHero } from 'api/apiCalls';
 import useNavigation from 'helpers/useNavigationHook';
+import { FontAwesome } from '@expo/vector-icons';
 
 /**
  * Send on submit
@@ -23,7 +24,18 @@ const AddHero: React.FC = () => {
     getAllTypes,
   );
 
-  const [createHeroMutation] = useMutation(createHero);
+  const [createHeroMutation] = useMutation(createHero, {
+    onSuccess: () => {
+      queryCache.invalidateQueries('heroes');
+    },
+  });
+
+  const initialValues: Omit<Hero, 'id'> = {
+    full_name: '',
+    description: '',
+    avatar_url: '',
+    type: '',
+  };
 
   const validationSchema = Yup.object().shape({
     full_name: Yup.string()
@@ -35,11 +47,10 @@ const AddHero: React.FC = () => {
 
   const { toHeroesPage } = useNavigation();
 
-  const initialValues: Omit<Hero<string>, 'id'> = {
-    full_name: '',
-    description: '',
-    avatar_url: '',
-    type: '',
+  const [showModal, setShowModal] = React.useState(false);
+
+  const handleShowModal = () => {
+    setShowModal(!showModal);
   };
 
   if (typesError) {
@@ -55,7 +66,6 @@ const AddHero: React.FC = () => {
           try {
             if (typeof values.type === 'string') {
               await createHeroMutation({ ...values, type: values.type });
-              queryCache.invalidateQueries('heroes');
               toHeroesPage();
             }
           } catch (error) {
@@ -103,6 +113,11 @@ const AddHero: React.FC = () => {
               onChangeText={handleChange('avatar_url')}
               value={values.avatar_url}
               placeholder="Avatar url"
+              rightItem={
+                <CustomButton onPressHandler={handleShowModal}>
+                  <FontAwesome name="plus" size={20} color="white" />
+                </CustomButton>
+              }
             />
             <CustomButton
               onPressHandler={
@@ -118,6 +133,11 @@ const AddHero: React.FC = () => {
           </FormContainer>
         )}
       </Formik>
+      {showModal ? (
+        <View>
+          <Text>Modal</Text>
+        </View>
+      ) : null}
     </Container>
   );
 };
