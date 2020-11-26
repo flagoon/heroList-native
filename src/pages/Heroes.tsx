@@ -12,6 +12,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 const Heroes: React.FC = () => {
   const { toAddHeroPage } = useNavigation();
   const [profileIdToDelete, setProfileIdToDelete] = React.useState('');
+
   const [deleteMutation] = useMutation(deleteHero, {
     onMutate: (value) => {
       queryCache.cancelQueries('heroes');
@@ -24,6 +25,7 @@ const Heroes: React.FC = () => {
       });
       return () => queryCache.setQueryData('heroes', prev);
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (_, __, rollback) => (rollback as any)(),
     onSettled: () => {
       queryCache.invalidateQueries('heroes');

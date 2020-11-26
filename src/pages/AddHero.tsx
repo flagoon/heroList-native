@@ -30,7 +30,7 @@ const AddHero: React.FC = () => {
     },
   });
 
-  const initialValues: Omit<Hero, 'id'> = {
+  const initialValues: Omit<Hero<string>, 'id'> = {
     full_name: '',
     description: '',
     avatar_url: '',
