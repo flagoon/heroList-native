@@ -39,7 +39,7 @@ const AlmostLazyImage: React.FC<Props> = ({ thumbUrl, imageUrl, size }) => {
   });
 
   return (
-    <AvatarContainer size={200}>
+    <AvatarContainer size={size}>
       <Animated.Image
         source={{ uri: thumbUrl }}
         style={[styles.container, { opacity: thumbOpacity }]}
