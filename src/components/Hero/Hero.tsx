@@ -38,7 +38,6 @@ const Hero: React.FC<
         },
         {
           text: 'Delete',
-          // TODO: change to delete hero
           onPress: () => {
             setToDelete('');
             deleteHero(id);
