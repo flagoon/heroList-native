@@ -3,19 +3,18 @@ import { StyleSheet, Animated } from 'react-native';
 import { AvatarContainer } from '../Avatar.sc';
 
 interface Props {
-  thumbUrl: string;
   imageUrl: string;
   size: number;
 }
 
-const AlmostLazyImage: React.FC<Props> = ({ thumbUrl, imageUrl, size }) => {
+const AlmostLazyImage: React.FC<Props> = ({ imageUrl, size }) => {
   const thumbOpacity = React.useRef(new Animated.Value(0)).current;
 
   const onImageLoad = () => {
     Animated.timing(thumbOpacity, {
       toValue: 0,
       useNativeDriver: false,
-      duration: 1000,
+      duration: 100,
     }).start();
   };
 
@@ -23,7 +22,7 @@ const AlmostLazyImage: React.FC<Props> = ({ thumbUrl, imageUrl, size }) => {
     Animated.timing(thumbOpacity, {
       toValue: 1,
       useNativeDriver: false,
-      duration: 1000,
+      duration: 10,
     }).start();
   };
 
@@ -41,7 +40,7 @@ const AlmostLazyImage: React.FC<Props> = ({ thumbUrl, imageUrl, size }) => {
   return (
     <AvatarContainer size={size}>
       <Animated.Image
-        source={{ uri: thumbUrl }}
+        source={require('../../../assets/empty_avatar.png')}
         style={[styles.container, { opacity: thumbOpacity }]}
         onLoad={onThumbLoad}
       />
