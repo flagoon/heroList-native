@@ -1,5 +1,5 @@
 import React from 'react';
-import { AvatarContainer, AvatarImage } from './Avatar.sc';
+import { HeroListAvatar, AvatarImage } from './Avatar.sc';
 
 interface Props {
   url: string;
@@ -7,9 +7,9 @@ interface Props {
 
 const Avatar: React.FC<Props> = ({ url }) => {
   return (
-    <AvatarContainer>
+    <HeroListAvatar>
       <AvatarImage source={{ uri: url }} />
-    </AvatarContainer>
+    </HeroListAvatar>
   );
 };
 
