@@ -107,7 +107,6 @@ const AddHero: React.FC = () => {
               textAlignVertical="top"
               placeholder="Descriptions"
             />
-            {/* TODO: make selectable avatar | use picture as avatar */}
             <CustomTextInput
               error={errors.avatar_url}
               touched={touched.avatar_url}
@@ -131,12 +130,18 @@ const AddHero: React.FC = () => {
             >
               <Text>Submit</Text>
             </CustomButton>
+            {showModal ? (
+              <HeroAvatarModal
+                onCloseButtonHandler={handleShowModal}
+                onAvatarClick={(url) => {
+                  setFieldValue('avatar_url', url);
+                  handleShowModal();
+                }}
+              />
+            ) : null}
           </FormContainer>
         )}
       </Formik>
-      {showModal ? (
-        <HeroAvatarModal onCloseButtonHandler={handleShowModal} />
-      ) : null}
     </Container>
   );
 };

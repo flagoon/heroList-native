@@ -21,4 +21,5 @@ export const AvatarContainer = styled(View)<{ size: number }>`
   border: 2px solid black;
   overflow: hidden;
   background-color: ${(props) => props.theme.colors.white};
+  margin: 4px;
 `;
