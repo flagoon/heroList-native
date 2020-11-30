@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
-import styled from 'styled-components';
+import { StyleSheet, Animated } from 'react-native';
+import { AvatarContainer } from '../Avatar.sc';
 
 interface Props {
   thumbUrl: string;
@@ -55,12 +55,3 @@ const AlmostLazyImage: React.FC<Props> = ({ thumbUrl, imageUrl, size }) => {
 };
 
 export default AlmostLazyImage;
-
-export const AvatarContainer = styled(View)<{ size: number }>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  border-radius: ${(props) => props.size / 2}px;
-  border: 2px solid black;
-  overflow: hidden;
-  background-color: ${(props) => props.theme.colors.white};
-`;

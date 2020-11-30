@@ -13,6 +13,7 @@ import CustomTextInput from 'components/CustomText/CustomTextInput';
 import { createHero } from 'api/apiCalls';
 import useNavigation from 'helpers/useNavigationHook';
 import { FontAwesome } from '@expo/vector-icons';
+import HeroAvatarModal from 'components/HeroAvatarModal/HeroAvatarModal';
 
 /**
  * Send on submit
@@ -134,9 +135,7 @@ const AddHero: React.FC = () => {
         )}
       </Formik>
       {showModal ? (
-        <View>
-          <Text>Modal</Text>
-        </View>
+        <HeroAvatarModal onCloseButtonHandler={handleShowModal} />
       ) : null}
     </Container>
   );
