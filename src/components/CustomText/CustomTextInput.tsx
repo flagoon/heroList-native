@@ -33,27 +33,35 @@ const CustomTextInput: React.FC<Props> = ({
 }: Props) => {
   return (
     <View>
-      <StyledTextInput
-        value={value}
-        hasErrors={!!error && !!touched}
-        onChangeText={onChangeText}
-        isTextArea={isTextArea}
-        placeholder={placeholder}
-        multiline={multiline}
-        numberOfLines={numberOfLines}
-        textAlignVertical={textAlignVertical}
-        style={style}
-      />
-      {rightItem && (
-        <IconContainer iconAlign="right">{rightItem}</IconContainer>
+      <Container order={!!leftItem}>
+        <StyledTextInput
+          value={value}
+          hasErrors={!!error && !!touched}
+          onChangeText={onChangeText}
+          isTextArea={isTextArea}
+          placeholder={placeholder}
+          multiline={multiline}
+          numberOfLines={numberOfLines}
+          textAlignVertical={textAlignVertical}
+          style={style}
+        />
+        {rightItem && (
+          <IconContainer iconAlign="right">{rightItem}</IconContainer>
+        )}
+        {leftItem && <IconContainer iconAlign="left">{leftItem}</IconContainer>}
+      </Container>
+      {!!error && !!touched && (
+        <ErrorText hasRightItem={!!rightItem}>{error}</ErrorText>
       )}
-      {leftItem && <IconContainer iconAlign="right">{leftItem}</IconContainer>}
-      {!!error && !!touched && <ErrorText>{error}</ErrorText>}
     </View>
   );
 };
 
 export default CustomTextInput;
+
+export const Container = styled(View)<{ order?: boolean }>`
+  flex-direction: ${(props) => (props.order ? 'row-reverse' : 'row')};
+`;
 
 const StyledTextInput = styled(TextInput)<{
   isTextArea?: boolean;
@@ -66,17 +74,23 @@ const StyledTextInput = styled(TextInput)<{
   color: black;
   border-radius: 4px;
   padding: 4px 8px 0;
+  flex: 1;
 `;
 
-export const ErrorText = styled(Text)`
+export const ErrorText = styled(Text)<{ hasRightItem: boolean }>`
   position: absolute;
-  right: 14px;
-  top: 10px;
+  right: ${(props) => (props.hasRightItem ? '62px' : '14px')};
+  top: 9px;
   color: red;
+  background-color: ${(props) => props.theme.colors.white};
+  padding: 3px 10px;
 `;
 
 export const IconContainer = styled(View)<{ iconAlign: 'left' | 'right' }>`
-  position: absolute;
+  ${(props) =>
+    props.iconAlign === 'left'
+      ? 'margin-left: 0; margin-right: 8px'
+      : 'margin-left: 8px; margin-right: 0'};
   width: 40px;
   align-self: ${(props) =>
     props.iconAlign === 'left' ? 'flex-start' : 'flex-end'};

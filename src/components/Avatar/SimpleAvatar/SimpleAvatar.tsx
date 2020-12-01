@@ -9,9 +9,21 @@ interface Props {
 }
 
 const SimpleAvatar: React.FC<Props> = ({ size, imageUrl }) => {
+  const [error, setError] = React.useState(false);
   return (
     <AvatarContainer size={size}>
-      <AvatarImage source={{ uri: imageUrl }} size={size} />
+      {error ? (
+        <AvatarImage
+          source={require('../../../assets/empty_avatar.png')}
+          size={size}
+        />
+      ) : (
+        <AvatarImage
+          source={{ uri: imageUrl }}
+          size={size}
+          onError={() => setError(true)}
+        />
+      )}
     </AvatarContainer>
   );
 };

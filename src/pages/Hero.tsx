@@ -16,14 +16,11 @@ const Hero: React.FC<Props> = ({ route }) => {
     params: { hero },
   } = route;
 
-  const imageUrl = hero.avatar_url.replace('50x50', '1200x1200');
-  console.log({ imageUrl, avatar: hero.avatar_url });
-
   return (
     <Container>
       <HeroContainer>
         <HeroName>{hero.full_name}</HeroName>
-        <SimpleAvatar imageUrl={imageUrl} size={200} />
+        <SimpleAvatar imageUrl={hero.avatar_url} size={200} />
 
         <HeroType>{hero.type.name}</HeroType>
         <HeroDescription>{hero.description}</HeroDescription>
