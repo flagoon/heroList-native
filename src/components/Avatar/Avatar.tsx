@@ -6,9 +6,14 @@ interface Props {
 }
 
 const Avatar: React.FC<Props> = ({ url }) => {
+  const [error, setError] = React.useState(false);
   return (
     <HeroListAvatar>
-      <AvatarImage source={{ uri: url }} />
+      {error ? (
+        <AvatarImage source={require('../../assets/empty_avatar.png')} />
+      ) : (
+        <AvatarImage source={{ uri: url }} onError={() => setError(true)} />
+      )}
     </HeroListAvatar>
   );
 };

@@ -43,7 +43,7 @@ const AddHero: React.FC = () => {
       .min(2, 'Too short')
       .max(50, 'Too long!')
       .required('Required!'),
-    avatar_url: Yup.string().url('Not url!').required('Required!'),
+    avatar_url: Yup.string().required('Required!'),
   });
 
   const { toHeroesPage } = useNavigation();
@@ -113,7 +113,7 @@ const AddHero: React.FC = () => {
               onChangeText={handleChange('avatar_url')}
               value={values.avatar_url}
               placeholder="Avatar url"
-              rightItem={
+              leftItem={
                 <CustomButton onPressHandler={handleShowModal}>
                   <FontAwesome name="plus" size={20} color="white" />
                 </CustomButton>

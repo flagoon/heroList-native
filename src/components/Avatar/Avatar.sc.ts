@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { FlattenSimpleInterpolation } from 'styled-components';
 import { View, Image } from 'react-native';
 
 export const HeroListAvatar = styled(View)`
@@ -14,7 +14,10 @@ export const AvatarImage = styled(Image)`
   width: 50px;
 `;
 
-export const AvatarContainer = styled(View)<{ size: number }>`
+export const AvatarContainer = styled(View)<{
+  size: number;
+  additionalStyles?: FlattenSimpleInterpolation;
+}>`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: ${(props) => props.size / 2}px;
@@ -22,4 +25,5 @@ export const AvatarContainer = styled(View)<{ size: number }>`
   overflow: hidden;
   background-color: ${(props) => props.theme.colors.white};
   margin: 4px;
+  ${(props) => props.additionalStyles}
 `;
