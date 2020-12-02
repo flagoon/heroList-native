@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeroListAvatar, AvatarImage } from './Avatar.sc';
+import { AvatarContainer, AvatarImage } from './Avatar.sc';
 
 interface Props {
   url: string;
@@ -8,13 +8,20 @@ interface Props {
 const Avatar: React.FC<Props> = ({ url }) => {
   const [error, setError] = React.useState(false);
   return (
-    <HeroListAvatar>
+    <AvatarContainer>
       {error ? (
-        <AvatarImage source={require('../../assets/empty_avatar.png')} />
+        <AvatarImage
+          size={50}
+          source={require('../../assets/empty_avatar.png')}
+        />
       ) : (
-        <AvatarImage source={{ uri: url }} onError={() => setError(true)} />
+        <AvatarImage
+          size={50}
+          source={{ uri: url }}
+          onError={() => setError(true)}
+        />
       )}
-    </HeroListAvatar>
+    </AvatarContainer>
   );
 };
 

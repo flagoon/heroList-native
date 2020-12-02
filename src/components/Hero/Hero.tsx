@@ -69,6 +69,7 @@ const Hero: React.FC<
       }}
     >
       <HeroMain>
+        {/* TODO: keep in mind to refactor this */}
         <Avatar url={avatar_url} />
         <HeroDetails>
           <HeroName>{full_name}</HeroName>

@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text, Platform, Image, FlatList } from 'react-native';
-import styled, { css } from 'styled-components';
+import { View, Text, Platform, FlatList } from 'react-native';
+import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AlmostLazyImage from 'components/Avatar/AlmostLazyAvatar/AlmostLazyAvatar';
 import CustomButton from 'components/CustomButton/CustomButton';
 import theme from 'globals/styles/defaultTheme';
 import * as ImagePicker from 'expo-image-picker';
-import { AvatarContainer } from 'components/Avatar/Avatar.sc';
+import {
+  AvatarImage,
+  AvatarPlaceholder,
+  CustomAvatar,
+} from 'components/Avatar/Avatar.sc';
 import { FontAwesome } from '@expo/vector-icons';
 import { useQuery } from 'react-query';
 import { getAllAvatars } from 'api';
@@ -15,11 +19,13 @@ import { isCompleteAvatar } from 'helpers/typeGuards';
 interface Props {
   onCloseButtonHandler: () => void;
   onAvatarClick: (url: string) => void;
+  avatarSize: number;
 }
 
 const HeroAvatarModal: React.FC<Props> = ({
   onCloseButtonHandler,
   onAvatarClick,
+  avatarSize,
 }) => {
   const numberOfColumns = 3;
   const [image, setImage] = React.useState<string | null>(null);
@@ -54,45 +60,28 @@ const HeroAvatarModal: React.FC<Props> = ({
 
   const renderAvatars = ({ item }: { item: Partial<Avatar> }) => {
     if (item.id === 'placeholder') {
-      return (
-        <AvatarContainer
-          size={100}
-          additionalStyles={css`
-            opacity: 0;
-          `}
-        ></AvatarContainer>
-      );
+      return <AvatarPlaceholder size={avatarSize} />;
     }
     if (item.id === 'camera') {
       return image ? (
         <TouchableOpacity onPress={() => onAvatarClick(image)}>
-          <AvatarContainer size={100}>
-            <AvatarImage
-              source={{
-                uri: image,
-              }}
-            />
-          </AvatarContainer>
+          <AvatarImage
+            size={avatarSize}
+            source={{
+              uri: image,
+            }}
+          />
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity onPress={pickImage}>
-          <AvatarContainer
-            size={100}
-            additionalStyles={css`
-              justify-content: center;
-              align-items: center;
-              border: 0;
-            `}
-          >
-            <FontAwesome name="film" size={60} color="black" />
-          </AvatarContainer>
-        </TouchableOpacity>
+        <CustomAvatar onPress={pickImage} size={avatarSize}>
+          <FontAwesome name="film" size={60} color="black" />
+        </CustomAvatar>
       );
     }
     if (isCompleteAvatar(item)) {
       return (
         <TouchableOpacity onPress={() => onAvatarClick(item.avatar_url)}>
-          <AlmostLazyImage size={100} imageUrl={item.avatar_url} />
+          <AlmostLazyImage size={avatarSize} imageUrl={item.avatar_url} />
         </TouchableOpacity>
       );
     }
@@ -100,6 +89,7 @@ const HeroAvatarModal: React.FC<Props> = ({
   };
 
   const formatData = (avatars: Avatar[]): Partial<Avatar>[] => {
+    // number of avatars, plus number of additional avatars, in this case 1 camera avatar
     const avatarPlaceholders = avatars.length + 1;
     const numberOfMissingAvatars =
       avatarPlaceholders % numberOfColumns === 0
@@ -128,6 +118,7 @@ const HeroAvatarModal: React.FC<Props> = ({
           numColumns={numberOfColumns}
           renderItem={renderAvatars}
           keyExtractor={(item) => item.id as string}
+          // eslint-disable-next-line react-native/no-inline-styles
           columnWrapperStyle={{
             justifyContent: 'space-between',
           }}
@@ -162,9 +153,4 @@ export const ModalContentContainer = styled(View)`
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin-bottom: 25px;
-`;
-
-export const AvatarImage = styled(Image)`
-  width: 100px;
-  height: 100px;
 `;
