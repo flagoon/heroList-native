@@ -1,7 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
-import styled from 'styled-components';
-import { AvatarContainer } from '../Avatar.sc';
+import { AvatarContainer, AvatarImage } from '../Avatar.sc';
 
 interface Props {
   imageUrl: string;
@@ -11,7 +9,7 @@ interface Props {
 const SimpleAvatar: React.FC<Props> = ({ size, imageUrl }) => {
   const [error, setError] = React.useState(false);
   return (
-    <AvatarContainer size={size}>
+    <AvatarContainer>
       {error ? (
         <AvatarImage
           source={require('../../../assets/empty_avatar.png')}
@@ -29,8 +27,3 @@ const SimpleAvatar: React.FC<Props> = ({ size, imageUrl }) => {
 };
 
 export default SimpleAvatar;
-
-export const AvatarImage = styled(Image)<Pick<Props, 'size'>>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-`;

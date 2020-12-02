@@ -41,7 +41,7 @@ const AlmostLazyImage: React.FC<Props> = ({ imageUrl: url, size }) => {
   });
 
   return (
-    <AvatarContainer size={size}>
+    <AvatarContainer>
       <Animated.Image
         source={require('../../../assets/empty_avatar.png')}
         style={[styles.container, { opacity: thumbOpacity }]}

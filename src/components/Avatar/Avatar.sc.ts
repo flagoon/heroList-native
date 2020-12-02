@@ -1,28 +1,27 @@
-import styled, { FlattenSimpleInterpolation } from 'styled-components';
-import { View, Image } from 'react-native';
+import styled, { css } from 'styled-components';
+import { View, Image, TouchableOpacity } from 'react-native';
 
-export const HeroListAvatar = styled(View)`
-  border-radius: 25px;
-  overflow: hidden;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  background-color: ${(props) => props.theme.colors.white};
+const avatarBoundingBox = css<{ size: number }>`
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 `;
 
 export const AvatarImage = styled(Image)`
-  height: 50px;
-  width: 50px;
+  ${avatarBoundingBox};
+  border-radius: ${(props) => props.size / 2}px;
 `;
 
-export const AvatarContainer = styled(View)<{
-  size: number;
-  additionalStyles?: FlattenSimpleInterpolation;
-}>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
-  border-radius: ${(props) => props.size / 2}px;
-  overflow: hidden;
-  background-color: ${(props) => props.theme.colors.white};
+export const AvatarContainer = styled(View)`
   margin: 4px;
-  ${(props) => props.additionalStyles}
+`;
+
+export const AvatarPlaceholder = styled(AvatarContainer)`
+  ${avatarBoundingBox};
+  opacity: 0;
+`;
+
+export const CustomAvatar = styled(TouchableOpacity)`
+  ${avatarBoundingBox};
+  justify-content: center;
+  align-items: center;
 `;

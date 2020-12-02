@@ -4,7 +4,6 @@ import Container from 'components/AppContainer/AppContainer';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useQuery, useMutation, queryCache } from 'react-query';
-import { TYPES } from 'globals/constants';
 import { getAllTypes } from 'api';
 import CustomButton from 'components/CustomButton/CustomButton';
 import TypePicker from 'components/TypePicker/TypePicker';
@@ -20,10 +19,7 @@ import HeroAvatarModal from 'components/HeroAvatarModal/HeroAvatarModal';
  */
 
 const AddHero: React.FC = () => {
-  const { isLoading: loadingTypes, data: types, error: typesError } = useQuery(
-    TYPES,
-    getAllTypes,
-  );
+  const { data: types, error: typesError } = useQuery('types', getAllTypes);
 
   const [createHeroMutation] = useMutation(createHero, {
     onSuccess: () => {
@@ -55,6 +51,7 @@ const AddHero: React.FC = () => {
   };
 
   if (typesError) {
+    // TODO: handle error better, show toast on error
     return <Text>{JSON.stringify('error')}</Text>;
   }
 
@@ -91,10 +88,10 @@ const AddHero: React.FC = () => {
               value={values.full_name}
               placeholder={'Full name'}
             />
-            {types?.data ? (
+            {types ? (
               <TypePicker
                 fieldName="type"
-                types={types.data}
+                types={types}
                 setFieldValue={setFieldValue}
               />
             ) : null}
@@ -119,15 +116,7 @@ const AddHero: React.FC = () => {
                 </CustomButton>
               }
             />
-            <CustomButton
-              onPressHandler={
-                loadingTypes
-                  ? () => {
-                      // do nothing
-                    }
-                  : handleSubmit
-              }
-            >
+            <CustomButton onPressHandler={handleSubmit}>
               <Text>Submit</Text>
             </CustomButton>
             {showModal ? (
@@ -137,6 +126,7 @@ const AddHero: React.FC = () => {
                   setFieldValue('avatar_url', url);
                   handleShowModal();
                 }}
+                avatarSize={100}
               />
             ) : null}
           </FormContainer>

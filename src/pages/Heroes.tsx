@@ -56,13 +56,19 @@ const Heroes: React.FC = () => {
     );
   };
 
+  // TODO: better handling errors
   if (heroesError) {
     return <Text>Error</Text>;
   }
 
   return (
     <Container>
-      <Spinner visible={loadingHeroes} textContent="Loading heroes" />
+      <Spinner
+        visible={loadingHeroes}
+        textStyle={spinnerTextColor}
+        textContent="Loading heroes"
+        color="white"
+      />
       <CustomButton
         onPressHandler={() => toAddHeroPage()}
         textSize="medium"
@@ -82,3 +88,7 @@ const Heroes: React.FC = () => {
 };
 
 export default Heroes;
+
+const spinnerTextColor = {
+  color: 'white',
+};
