@@ -51,7 +51,7 @@ const Heroes: React.FC = () => {
         description={item.description}
         toDelete={item.id === profileIdToDelete}
         setToDelete={(id) => setProfileIdToDelete(id)}
-        deleteHero={(id: string) => deleteMutation(id)}
+        deleteHero={(id) => deleteMutation(id)}
       />
     );
   };

@@ -6,7 +6,7 @@ export const HeroListAvatar = styled(View)`
   overflow: hidden;
   margin-right: 8px;
   margin-bottom: 8px;
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const AvatarImage = styled(Image)`
@@ -21,7 +21,6 @@ export const AvatarContainer = styled(View)<{
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: ${(props) => props.size / 2}px;
-  border: 2px solid black;
   overflow: hidden;
   background-color: ${(props) => props.theme.colors.white};
   margin: 4px;
