@@ -22,3 +22,10 @@ export const createHero = async (hero: {
 export const deleteHero = async (id: string): Promise<AxiosResponse<Hero>> => {
   return axios.delete(`${HOST}${ENDPOINTS.heroes}/${id}`);
 };
+
+export const getAllAvatars = async (): Promise<Avatar[]> => {
+  const result = await axios.get<Avatar[], AxiosResponse<Avatar[]>>(
+    `${HOST}${ENDPOINTS.avatars}`,
+  );
+  return result.data;
+};

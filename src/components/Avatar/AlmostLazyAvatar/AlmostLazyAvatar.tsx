@@ -1,14 +1,17 @@
 import React from 'react';
 import { StyleSheet, Animated } from 'react-native';
 import { AvatarContainer } from '../Avatar.sc';
+import { HOST_IP } from 'api/CONSTS';
 
 interface Props {
   imageUrl: string;
   size: number;
 }
 
-const AlmostLazyImage: React.FC<Props> = ({ imageUrl, size }) => {
+const AlmostLazyImage: React.FC<Props> = ({ imageUrl: url, size }) => {
   const thumbOpacity = React.useRef(new Animated.Value(0)).current;
+
+  const imageUrl = url.replace('localhost', HOST_IP);
 
   const onImageLoad = () => {
     Animated.timing(thumbOpacity, {
@@ -48,7 +51,7 @@ const AlmostLazyImage: React.FC<Props> = ({ imageUrl, size }) => {
         source={{ uri: imageUrl }}
         style={[styles.container, styles.withPositionAbsolute]}
         onLoad={onImageLoad}
-      ></Animated.Image>
+      />
     </AvatarContainer>
   );
 };

@@ -33,5 +33,4 @@ export default SimpleAvatar;
 export const AvatarImage = styled(Image)<Pick<Props, 'size'>>`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  border-radius: ${(props) => props.size / 2}px;
 `;

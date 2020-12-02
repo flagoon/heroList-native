@@ -19,3 +19,9 @@ declare type HeroType = {
   id: string;
   name: string;
 };
+
+declare type Avatar = {
+  id: string;
+  avatar_url: string;
+  alt: string;
+};
