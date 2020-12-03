@@ -11,6 +11,7 @@ import Hero from 'pages/Hero';
 import AppContainer from 'components/AppContainer/AppContainer';
 import AddHero from 'pages/AddHero';
 import { setConsole } from 'react-query';
+import ErrorHandler from 'globals/ErrorHandler/ErrorHandler';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

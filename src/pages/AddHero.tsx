@@ -13,6 +13,8 @@ import { createHero } from 'api/apiCalls';
 import useNavigation from 'helpers/useNavigationHook';
 import { FontAwesome } from '@expo/vector-icons';
 import HeroAvatarModal from 'components/HeroAvatarModal/HeroAvatarModal';
+import ErrorComponent from 'components/ErrorComponent/ErrorComponent';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 /**
  * Send on submit
@@ -58,12 +60,22 @@ const AddHero: React.FC = () => {
   };
 
   if (typesError) {
-    // TODO: handle error better, show toast on error
-    return <Text>{JSON.stringify('error')}</Text>;
+    return (
+      <ErrorComponent
+        errorMessage={typesError.message}
+        onButtonPress={toHeroesPage}
+      />
+    );
   }
 
   return (
     <Container>
+      <Spinner
+        color={theme.colors.white}
+        textStyle={spinnerTextColor}
+        textContent="Loading types"
+        visible={typesLoading}
+      />
       <AddHeroTitle>AddHero</AddHeroTitle>
       <Formik
         initialValues={initialValues}
@@ -95,13 +107,11 @@ const AddHero: React.FC = () => {
               value={values.full_name}
               placeholder={'Full name'}
             />
-            {types ? (
-              <TypePicker
-                fieldName="type"
-                types={types}
-                setFieldValue={setFieldValue}
-              />
-            ) : null}
+            <TypePicker
+              fieldName="type"
+              types={types || [{ id: '1', name: 'Choose type...' }]}
+              setFieldValue={setFieldValue}
+            />
             <CustomTextInput
               isTextArea
               onChangeText={handleChange('description')}

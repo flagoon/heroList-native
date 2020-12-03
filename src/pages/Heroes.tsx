@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import CustomButton from 'components/CustomButton/CustomButton';
 import Hero from 'components/Hero/Hero';
 import { useQuery, useMutation, queryCache } from 'react-query';
@@ -9,6 +9,7 @@ import { HOST_IP } from 'api/CONSTS';
 import useNavigation from 'helpers/useNavigationHook';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useTheme } from 'styled-components';
+import ErrorComponent from 'components/ErrorComponent/ErrorComponent';
 
 const Heroes: React.FC = () => {
   const theme = useTheme();
@@ -42,7 +43,7 @@ const Heroes: React.FC = () => {
     isLoading: loadingHeroes,
     data: heroes,
     error: heroesError,
-  } = useQuery('heroes', getAllHeros);
+  } = useQuery<Hero[], Error>('heroes', getAllHeros);
 
   const renderItem = ({ item }: { item: Hero }) => {
     const changeAvatar = item.avatar_url.includes('localhost')
@@ -64,7 +65,7 @@ const Heroes: React.FC = () => {
 
   // TODO: better handling errors
   if (heroesError) {
-    return <Text>Error</Text>;
+    return <ErrorComponent errorMessage={heroesError.message} />;
   }
 
   return (
