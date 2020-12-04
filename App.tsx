@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, LogBox } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ThemeProvider } from 'styled-components';
 import Heroes from 'pages/Heroes';
@@ -19,6 +19,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: theme.colors.background,
+  },
+};
 
 // https://react-query.tanstack.com/docs/react-native
 setConsole({
@@ -37,22 +45,24 @@ export default function App(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <ThemeProvider theme={theme}>
-        <AppContainer>
-          <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName="Heroes"
-              screenOptions={{
-                headerShown: false,
-              }}
-            >
-              <Stack.Screen name="Heroes" component={Heroes} />
-              <Stack.Screen name="Hero" component={Hero} />
-              <Stack.Screen name="AddHero" component={AddHero} />
-            </Stack.Navigator>
-            {/* eslint-disable-next-line react/style-prop-object */}
-            <StatusBar style="light" backgroundColor="#065143" />
-          </NavigationContainer>
-        </AppContainer>
+        <ErrorHandler>
+          <AppContainer>
+            <NavigationContainer theme={MyTheme}>
+              <Stack.Navigator
+                initialRouteName="Heroes"
+                screenOptions={{
+                  headerShown: false,
+                }}
+              >
+                <Stack.Screen name="Heroes" component={Heroes} />
+                <Stack.Screen name="Hero" component={Hero} />
+                <Stack.Screen name="AddHero" component={AddHero} />
+              </Stack.Navigator>
+              {/* eslint-disable-next-line react/style-prop-object */}
+              <StatusBar style="light" backgroundColor="#065143" />
+            </NavigationContainer>
+          </AppContainer>
+        </ErrorHandler>
       </ThemeProvider>
     </SafeAreaView>
   );
