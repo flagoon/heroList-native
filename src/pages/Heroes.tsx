@@ -8,8 +8,14 @@ import Container from 'components/AppContainer/AppContainer';
 import { HOST_IP } from 'api/CONSTS';
 import useNavigation from 'helpers/useNavigationHook';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { useTheme } from 'styled-components';
 
 const Heroes: React.FC = () => {
+  const theme = useTheme();
+  const spinnerTextColor = {
+    color: theme.colors.white,
+  };
+
   const { toAddHeroPage } = useNavigation();
   const [profileIdToDelete, setProfileIdToDelete] = React.useState('');
 
@@ -67,14 +73,14 @@ const Heroes: React.FC = () => {
         visible={loadingHeroes}
         textStyle={spinnerTextColor}
         textContent="Loading heroes"
-        color="white"
+        color={theme.colors.white}
       />
       <CustomButton
-        onPressHandler={() => toAddHeroPage()}
+        onPressHandler={toAddHeroPage}
         textSize="medium"
         textWeight="bold"
       >
-        <Text>+ Add hero</Text>
+        + Add hero
       </CustomButton>
       {heroes !== undefined && (
         <FlatList
@@ -88,7 +94,3 @@ const Heroes: React.FC = () => {
 };
 
 export default Heroes;
-
-const spinnerTextColor = {
-  color: 'white',
-};

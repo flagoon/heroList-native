@@ -7,7 +7,7 @@ import { useQuery, useMutation, queryCache } from 'react-query';
 import { getAllTypes } from 'api';
 import CustomButton from 'components/CustomButton/CustomButton';
 import TypePicker from 'components/TypePicker/TypePicker';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import CustomTextInput from 'components/CustomText/CustomTextInput';
 import { createHero } from 'api/apiCalls';
 import useNavigation from 'helpers/useNavigationHook';
@@ -19,7 +19,14 @@ import HeroAvatarModal from 'components/HeroAvatarModal/HeroAvatarModal';
  */
 
 const AddHero: React.FC = () => {
-  const { data: types, error: typesError } = useQuery('types', getAllTypes);
+  const theme = useTheme();
+  const spinnerTextColor = {
+    color: theme.colors.white,
+  };
+  const { data: types, isLoading: typesLoading, error: typesError } = useQuery<
+    HeroType[],
+    Error
+  >('types', getAllTypes);
 
   const [createHeroMutation] = useMutation(createHero, {
     onSuccess: () => {
@@ -112,13 +119,15 @@ const AddHero: React.FC = () => {
               placeholder="Avatar url"
               leftItem={
                 <CustomButton onPressHandler={handleShowModal}>
-                  <FontAwesome name="plus" size={20} color="white" />
+                  <FontAwesome
+                    name="plus"
+                    size={20}
+                    color={theme.colors.white}
+                  />
                 </CustomButton>
               }
             />
-            <CustomButton onPressHandler={handleSubmit}>
-              <Text>Submit</Text>
-            </CustomButton>
+            <CustomButton onPressHandler={handleSubmit}>Submit</CustomButton>
             {showModal ? (
               <HeroAvatarModal
                 onCloseButtonHandler={handleShowModal}

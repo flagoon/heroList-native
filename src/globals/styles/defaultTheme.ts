@@ -7,6 +7,7 @@ const theme: DefaultTheme = {
     background: '#065143',
     black: '#1A3A3A',
     white: '#F0F0F0',
+    error: '#FF0000',
     text: {
       primary: '#CE1483',
       secondary: '#F0F0F0',
@@ -19,4 +20,5 @@ const theme: DefaultTheme = {
     big: '36px',
   },
 };
+
 export default theme;

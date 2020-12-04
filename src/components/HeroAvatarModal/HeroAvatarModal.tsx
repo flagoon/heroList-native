@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Text, Platform, FlatList } from 'react-native';
-import styled from 'styled-components';
+import { View, Platform, FlatList } from 'react-native';
+import styled, { useTheme } from 'styled-components';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AlmostLazyImage from 'components/Avatar/AlmostLazyAvatar/AlmostLazyAvatar';
 import CustomButton from 'components/CustomButton/CustomButton';
-import theme from 'globals/styles/defaultTheme';
 import * as ImagePicker from 'expo-image-picker';
 import {
   AvatarImage,
@@ -28,6 +27,8 @@ const HeroAvatarModal: React.FC<Props> = ({
   avatarSize,
 }) => {
   const numberOfColumns = 3;
+  const theme = useTheme();
+
   const [image, setImage] = React.useState<string | null>(null);
 
   const { data: avatars } = useQuery('avatars', getAllAvatars);
@@ -74,7 +75,7 @@ const HeroAvatarModal: React.FC<Props> = ({
         </TouchableOpacity>
       ) : (
         <CustomAvatar onPress={pickImage} size={avatarSize}>
-          <FontAwesome name="film" size={60} color="black" />
+          <FontAwesome name="film" size={60} color={theme.colors.black} />
         </CustomAvatar>
       );
     }
@@ -127,7 +128,7 @@ const HeroAvatarModal: React.FC<Props> = ({
           onPressHandler={onCloseButtonHandler}
           backgroundColor={theme.colors.primary}
         >
-          <Text>Cancel</Text>
+          Cancel
         </CustomButton>
       </Container>
     );

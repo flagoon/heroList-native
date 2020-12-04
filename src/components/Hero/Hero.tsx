@@ -11,6 +11,7 @@ import {
   DeleteIcon,
 } from './Hero.sc';
 import usePageNavigation from 'helpers/useNavigationHook';
+import theme from 'globals/styles/defaultTheme';
 
 const Hero: React.FC<
   Hero & {
@@ -77,7 +78,7 @@ const Hero: React.FC<
         </HeroDetails>
         {toDelete && (
           <DeleteButton onPress={createAlert}>
-            <DeleteIcon name="cross" size={24} color="white" />
+            <DeleteIcon name="cross" size={24} color={theme.colors.white} />
           </DeleteButton>
         )}
       </HeroMain>
